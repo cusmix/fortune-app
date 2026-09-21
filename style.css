@@ -192,6 +192,16 @@ button:focus-visible {
 .fortune-result.is-revealed[data-fortune="末吉"] { background-color: #e0f2fc; }
 .fortune-result.is-revealed[data-fortune="凶"] { background-color: #eeeeef; }
 
+/* 運勢名の下に添える共通メッセージ。hiddenの非表示は維持します。 */
+.fortune-badge {
+  margin-top: 8px;
+  font-size: clamp(14px, 3.5vw, 18px);
+  font-weight: bold;
+  letter-spacing: 0.04em;
+  text-indent: 0;
+  overflow-wrap: anywhere;
+}
+
 #fortune-message {
   margin: 16px 0 0;
   font-size: 15px;

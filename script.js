@@ -13,6 +13,8 @@ const luckyItems = ["ハンカチ", "本", "マグカップ", "ペン", "腕時�
 // HTMLから、ボタンと結果を表示する要素を取得します。
 const fortuneButton = document.getElementById("fortune-button");
 const fortuneResult = document.getElementById("fortune-result");
+const fortuneName = document.getElementById("fortune-name");
+const fortuneBadge = document.getElementById("fortune-badge");
 const fortuneDetails = document.getElementById("fortune-details");
 const fortuneMessage = document.getElementById("fortune-message");
 const luckyColor = document.getElementById("lucky-color");
@@ -26,7 +28,7 @@ const fortuneDescription = document.getElementById("fortune-description");
 const resetButton = document.getElementById("reset-button");
 // 最初の文言を保存し、やり直すときに同じ表示へ戻します。
 const initialDescription = fortuneDescription.textContent;
-const initialResult = fortuneResult.textContent;
+const initialResult = fortuneName.textContent;
 
 // 配列の中から、ランダムに1つ選ぶ共通の関数です。
 function pickRandom(list) {
@@ -79,7 +81,11 @@ fortuneButton.addEventListener("click", () => {
   window.clearTimeout(confettiTimer);
   confetti.replaceChildren();
   const fortune = pickRandom(fortunes);
-  fortuneResult.textContent = fortune.name;
+  fortuneName.textContent = fortune.name;
+  // 大吉・中吉だけに追加メッセージを表示し、それ以外は空にします。
+  const badges = { "大吉": "✨ SUPER LUCKY ✨", "中吉": "✨ LUCKY ✨" };
+  fortuneBadge.textContent = badges[fortune.name] ?? "";
+  fortuneBadge.hidden = fortuneBadge.textContent === "";
   // CSSが運勢に合う背景色を選べるよう、結果欄に運勢を記録します。
   fortuneResult.dataset.fortune = fortune.name;
   fortuneResult.classList.add("is-revealed");
@@ -101,7 +107,9 @@ resetButton.addEventListener("click", () => {
   confettiTimer = undefined;
   confetti.replaceChildren();
 
-  fortuneResult.textContent = initialResult;
+  fortuneName.textContent = initialResult;
+  fortuneBadge.textContent = "";
+  fortuneBadge.hidden = true;
   fortuneResult.classList.remove("is-revealed");
   // やり直すときは、前回の運勢の背景色も解除します。
   delete fortuneResult.dataset.fortune;

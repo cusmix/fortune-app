@@ -21,7 +21,10 @@
     <button id="fortune-button" type="button">今日の運勢を見る</button>
     <!-- 結果の変更をスクリーンリーダーにも伝えます。 -->
     <div aria-live="polite" aria-atomic="true">
-      <p id="fortune-result" class="fortune-result">ボタンを押して占ってみましょう</p>
+      <p id="fortune-result" class="fortune-result">
+        <span id="fortune-name">ボタンを押して占ってみましょう</span>
+        <span id="fortune-badge" class="fortune-badge" hidden></span>
+      </p>
       <div id="fortune-details" hidden>
         <p id="fortune-message"></p>
         <dl class="lucky-details">

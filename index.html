@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>今日の運勢</title>
+  <!-- 見た目の設定は、別ファイルのCSSを読み込みます。 -->
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="fortune-card">
+    <h1>今日の<span>運勢</span></h1>
+    <p id="fortune-description" class="description">あなたの今日は、どんな一日？</p>
+    <!-- ニックネームの入力欄は、最初の抽選後に非表示にします。 -->
+    <div id="nickname-fields" class="nickname-fields">
+      <label for="nickname">ニックネーム</label>
+      <input id="nickname" type="text" autocomplete="nickname" aria-describedby="nickname-error">
+      <p id="nickname-error" class="nickname-error" role="alert"></p>
+    </div>
+    <button id="fortune-button" type="button">今日の運勢を見る</button>
+    <!-- 結果の変更をスクリーンリーダーにも伝えます。 -->
+    <div aria-live="polite" aria-atomic="true">
+      <p id="fortune-result" class="fortune-result">ボタンを押して占ってみましょう</p>
+      <div id="fortune-details" hidden>
+        <p id="fortune-message"></p>
+        <dl class="lucky-details">
+          <div><dt>ラッキーカラー</dt><dd id="lucky-color"></dd></div>
+          <div><dt>ラッキーアイテム</dt><dd id="lucky-item"></dd></div>
+        </dl>
+      </div>
+    </div>
+    <button id="reset-button" class="reset-button" type="button" hidden>もう一度占う</button>
+  </main>
+  <!-- 紙吹雪は装飾なので、読み上げの対象から外します。 -->
+  <div id="confetti" class="confetti" aria-hidden="true"></div>
+</body>
+</html>

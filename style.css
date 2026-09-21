@@ -214,6 +214,7 @@ button:focus-visible {
 
 /* 運勢名の下に添える共通メッセージ。hiddenの非表示は維持します。 */
 .fortune-badge {
+  color: #b32440;
   margin-top: 8px;
   font-size: clamp(14px, 3.5vw, 18px);
   font-weight: bold;

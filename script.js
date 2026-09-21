@@ -80,6 +80,16 @@ copyButton.addEventListener("click", async () => {
 const initialDescription = fortuneDescription.textContent;
 const initialResult = fortuneName.textContent;
 
+// 対応ブラウザーでは見た目の文字数を使います。
+function countNicknameCharacters(text) {
+  if (typeof Intl !== "undefined" && typeof Intl.Segmenter === "function") {
+    return Array.from(new Intl.Segmenter("ja", { granularity: "grapheme" }).segment(text)).length;
+  }
+  // 非対応時は結合できる文字をまとめて数えます。
+  // 国旗や家族などの複雑な絵文字は、複数文字として数える場合があります。
+  return Array.from(text.normalize("NFC")).length;
+}
+
 // 配列の中から、ランダムに1つ選ぶ共通の関数です。
 function pickRandom(list) {
   return list[Math.floor(Math.random() * list.length)];
@@ -110,10 +120,8 @@ fortuneButton.addEventListener("click", () => {
     return;
   }
 
-  // 絵文字や結合文字も、見た目の1文字として数えます。
-  const nicknameLength = Array.from(
-    new Intl.Segmenter("ja", { granularity: "grapheme" }).segment(nickname)
-  ).length;
+  // ブラウザーの対応状況に合わせて、ニックネームの文字数を確認します。
+  const nicknameLength = countNicknameCharacters(nickname);
   if (nicknameLength > 10) {
     nicknameError.textContent = "ニックネームは10文字以内で入力してください";
     nicknameInput.setAttribute("aria-invalid", "true");

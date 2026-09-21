@@ -80,6 +80,8 @@ fortuneButton.addEventListener("click", () => {
   confetti.replaceChildren();
   const fortune = pickRandom(fortunes);
   fortuneResult.textContent = fortune.name;
+  // CSSが運勢に合う背景色を選べるよう、結果欄に運勢を記録します。
+  fortuneResult.dataset.fortune = fortune.name;
   fortuneResult.classList.add("is-revealed");
   fortuneMessage.textContent = fortune.message;
   luckyColor.textContent = pickRandom(luckyColors);
@@ -101,6 +103,8 @@ resetButton.addEventListener("click", () => {
 
   fortuneResult.textContent = initialResult;
   fortuneResult.classList.remove("is-revealed");
+  // やり直すときは、前回の運勢の背景色も解除します。
+  delete fortuneResult.dataset.fortune;
   fortuneDetails.hidden = true;
   fortuneMessage.textContent = "";
   luckyColor.textContent = "";

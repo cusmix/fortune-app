@@ -184,6 +184,14 @@ button:focus-visible {
   text-indent: 0.16em;
 }
 
+/* 結果が表示されているときだけ、運勢ごとの淡い背景色にします。 */
+.fortune-result.is-revealed[data-fortune="大吉"] { background-color: #fce3eb; }
+.fortune-result.is-revealed[data-fortune="中吉"] { background-color: #ffead6; }
+.fortune-result.is-revealed[data-fortune="小吉"] { background-color: #fff5cf; }
+.fortune-result.is-revealed[data-fortune="吉"] { background-color: #def5df; }
+.fortune-result.is-revealed[data-fortune="末吉"] { background-color: #e0f2fc; }
+.fortune-result.is-revealed[data-fortune="凶"] { background-color: #eeeeef; }
+
 #fortune-message {
   margin: 16px 0 0;
   font-size: 15px;

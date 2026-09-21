@@ -162,6 +162,26 @@ button:focus-visible {
   background-color: #c9eadf;
 }
 
+/* コピー機能だけに適用する見た目。既存のボタンは変更しません。 */
+.copy-button { margin-top: 24px; }
+.copy-button:disabled { opacity: 0.65; cursor: default; }
+.copy-button:disabled:active { transform: none; }
+.copy-status { margin: 12px 0 0; font-size: 14px; }
+.copy-status:empty { margin: 0; }
+.copy-fallback { margin-top: 16px; text-align: left; }
+.copy-fallback label { display: block; margin-bottom: 8px; }
+.copy-fallback textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #34384f;
+  border-radius: 12px;
+  font: inherit;
+  font-size: 16px;
+  color: #34384f;
+  background: #fff8d8;
+  resize: vertical;
+}
+
 .fortune-result {
   min-height: 82px;
   margin: 36px 0 0;

@@ -26,6 +26,56 @@ const nicknameInput = document.getElementById("nickname");
 const nicknameError = document.getElementById("nickname-error");
 const fortuneDescription = document.getElementById("fortune-description");
 const resetButton = document.getElementById("reset-button");
+const copyControls = document.getElementById("copy-controls");
+const copyButton = document.getElementById("copy-button");
+const copyStatus = document.getElementById("copy-status");
+const copyFallback = document.getElementById("copy-fallback");
+const copyText = document.getElementById("copy-text");
+let resultText = "";
+let copyTimer;
+let resultVersion = 0;
+
+// 結果の番号を進め、古いコピー処理が画面を更新するのを防ぎます。
+function resetCopy() {
+  resultVersion++;
+  window.clearTimeout(copyTimer);
+  copyTimer = undefined;
+  resultText = "";
+  copyControls.hidden = true;
+  copyButton.disabled = false;
+  copyButton.textContent = "結果をコピー";
+  copyStatus.textContent = "";
+  copyFallback.hidden = true;
+  copyText.value = "";
+}
+
+copyButton.addEventListener("click", async () => {
+  if (!resultText || copyButton.disabled) return;
+  const version = resultVersion;
+  const text = resultText;
+  copyButton.disabled = true;
+  try {
+    // 完了を待ってから成功を表示します。非対応や拒否もcatchで扱います。
+    await navigator.clipboard.writeText(text);
+    if (version !== resultVersion) return;
+    copyFallback.hidden = true;
+    copyText.value = "";
+    copyButton.textContent = "コピー成功";
+    copyStatus.textContent = "コピー成功";
+    copyTimer = window.setTimeout(() => {
+      if (version !== resultVersion) return;
+      copyButton.textContent = "結果をコピー";
+      copyButton.disabled = false;
+      copyStatus.textContent = "";
+    }, 1000);
+  } catch (error) {
+    if (version !== resultVersion) return;
+    copyButton.disabled = false;
+    copyStatus.textContent = "コピーできませんでした。下の文章を選択してコピーしてください";
+    copyText.value = text;
+    copyFallback.hidden = false;
+  }
+});
 // 最初の文言を保存し、やり直すときに同じ表示へ戻します。
 const initialDescription = fortuneDescription.textContent;
 const initialResult = fortuneName.textContent;
@@ -95,13 +145,25 @@ fortuneButton.addEventListener("click", () => {
   fortuneDetails.hidden = false;
   // 大吉の場合だけ、お祝いの紙吹雪を表示します。
   if (fortune.name === "大吉") showConfetti();
-  // 操作ボタンは常に1つだけ表示します。
+  // 表示した結果から文章を作ります。コピー時に再抽選はしません。
+  resetCopy();
+  resultText = [
+    `ニックネーム：${nickname}`,
+    `運勢：${fortune.name}`,
+    fortuneBadge.textContent,
+    `運勢メッセージ：${fortune.message}`,
+    `ラッキーカラー：${luckyColor.textContent}`,
+    `ラッキーアイテム：${luckyItem.textContent}`,
+  ].filter(line => line !== "").join("\n");
+  copyControls.hidden = false;
+  // 結果画面ではコピーとやり直しを選べます。
   fortuneButton.hidden = true;
   resetButton.hidden = false;
   resetButton.focus();
 });
 
 resetButton.addEventListener("click", () => {
+  resetCopy();
   // 紙吹雪の途中でも、表示と後片付け用のタイマーを止めます。
   window.clearTimeout(confettiTimer);
   confettiTimer = undefined;

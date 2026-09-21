@@ -33,6 +33,14 @@
         </dl>
       </div>
     </div>
+    <div id="copy-controls" hidden>
+      <button id="copy-button" class="copy-button" type="button">結果をコピー</button>
+      <p id="copy-status" class="copy-status" role="status"></p>
+      <div id="copy-fallback" class="copy-fallback" hidden>
+        <label for="copy-text">手動コピー用の文章</label>
+        <textarea id="copy-text" rows="7" readonly></textarea>
+      </div>
+    </div>
     <button id="reset-button" class="reset-button" type="button" hidden>もう一度占う</button>
   </main>
   <!-- 紙吹雪は装飾なので、読み上げの対象から外します。 -->

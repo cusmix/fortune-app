@@ -259,6 +259,28 @@ button:focus-visible {
   .lucky-details { grid-template-columns: 1fr; gap: 20px; }
 }
 
+/* カード下部に常設する説明。高さを固定せず、文章を自然に折り返します。 */
+.privacy-note {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #d9dce3;
+  color: #34384f;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.privacy-note h2 {
+  margin: 0 0 12px;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.privacy-note p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
 /* 紙吹雪を画面全体に表示し、ボタン操作は妨げません。 */
 .confetti {
   position: fixed;

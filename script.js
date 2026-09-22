@@ -167,7 +167,7 @@ fortuneButton.addEventListener("click", () => {
   // 結果画面ではコピーとやり直しを選べます。
   fortuneButton.hidden = true;
   resetButton.hidden = false;
-  resetButton.focus();
+  fortuneResult.focus();
 });
 
 resetButton.addEventListener("click", () => {

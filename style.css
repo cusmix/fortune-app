@@ -191,6 +191,12 @@ button:focus-visible {
   font-size: 14px;
 }
 
+/* キーボード操作で結果に移動した位置を、控えめな枠で示します。 */
+.fortune-result:focus-visible {
+  outline: 2px solid #34384f;
+  outline-offset: 4px;
+}
+
 /* 運勢を表示するときは、文字を大きくします。 */
 .fortune-result.is-revealed {
   color: #cf365d;
